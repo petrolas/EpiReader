@@ -30,4 +30,4 @@ main.o: test2.c
 
 
 clean:
-	rm -f *.o
+	rm main *.o
