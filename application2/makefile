@@ -7,12 +7,11 @@ CC=gcc
 DEBUG=-g
 # optimisation
 OPT=-O0
-# warnings
-WARN=-Wall
+
 
 PTHREAD=-pthread
 
-CCFLAGS=$(DEBUG) $(OPT) $(WARN) $(PTHREAD) -pipe
+CCFLAGS=$(DEBUG) $(OPT) $(PTHREAD) -pipe
 
 GTKLIB=`pkg-config --cflags --libs gtk+-3.0`
 
