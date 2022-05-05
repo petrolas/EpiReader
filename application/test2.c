@@ -16,7 +16,7 @@ int main(int argc, char **argv)
  
     /* Création de la fenêtre */
     pWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(pWindow), "GtkMenu");
+    gtk_window_set_title(GTK_WINDOW(pWindow), "QRcode");
     gtk_window_set_default_size(GTK_WINDOW(pWindow), 320, 200);
     g_signal_connect(G_OBJECT(pWindow), "destroy", G_CALLBACK(gtk_main_quit), NULL);
  
