@@ -32,16 +32,9 @@ int main(int argc, char **argv)
     /* ÉTAPE 2 */
     pMenu = gtk_menu_new();
     /* ÉTAPE 3 */
-    pMenuItem = gtk_menu_item_new_with_label("Nouveau");
-    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
+    p
  
     pMenuItem = gtk_menu_item_new_with_label("Ouvrir");
-    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
- 
-    pMenuItem = gtk_menu_item_new_with_label("Enregistrer");
-    gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
- 
-    pMenuItem = gtk_menu_item_new_with_label("Fermer");
     gtk_menu_shell_append(GTK_MENU_SHELL(pMenu), pMenuItem);
  
     pMenuItem = gtk_menu_item_new_with_label("Quitter");
@@ -109,8 +102,8 @@ void OnAbout(GtkWidget* widget, gpointer data)
         GTK_DIALOG_MODAL,
         GTK_MESSAGE_INFO,
         GTK_BUTTONS_OK,
-        "Cours GTK+ 2.0\n"
-        "http://gtk.developpez.com");
+        "projet réalisé par\n"
+        "EPIREADER");
  
     gtk_dialog_run(GTK_DIALOG(pAbout));
  
