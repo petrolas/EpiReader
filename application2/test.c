@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     gtk_init(&argc, &argv);
  
     pWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(pWindow), "Le widget GtkEntry");
+    gtk_window_set_title(GTK_WINDOW(pWindow), "QRcode scanner");
     gtk_window_set_default_size(GTK_WINDOW(pWindow), 320, 200);
     g_signal_connect(G_OBJECT(pWindow), "destroy", G_CALLBACK(gtk_main_quit), NULL);
  
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     /* Insertion du GtkEntry dans la GtkVBox */
     gtk_box_pack_start(GTK_BOX(pVBox), pEntry, TRUE, FALSE, 0);
  
-    pButton = gtk_button_new_with_label("Copier");
+    pButton = gtk_button_new_with_label("créer le QRcode");
     gtk_box_pack_start(GTK_BOX(pVBox), pButton, TRUE, FALSE, 0);
  
     pLabel = gtk_label_new(NULL);
