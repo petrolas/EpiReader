@@ -253,6 +253,15 @@ int main()
         {1,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,1,0,0,0,0},
         {1,1,1,1,1,1,1,0,1,1,0,1,1,0,0,1,1,1,0,1,0},
     };
+    for(size_t i = 0; i<21; i++)
+    {
+        for(size_t j = 0; j<21; j++)
+        {
+            printf("%i,",(int)qrcode[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
     char new[20][20];
 
     stripQrCode(qrcode, new);
