@@ -1,22 +1,3 @@
-/*	PNG File Generator
-*	by B.J. Guillot (bguillot@acm.org)
-*	Copyright (C) 2016
-*	All Rights Reserved
-*	Released under MIT License
-*	Version 1.0
-*	2016-07-01
-*/
-
-/*
-*	The png_create function takes a 8-bit (256 color) "image" (2D unsigned char array)
-*	of specified "width" and "height" (pixels) and writes it out to passed-in "filename".
-*	Will pad the top, bottom, left, and right margins with number of pixels specified in "border". 
-*
-*       Compiled and tested on Mac OS X El Capitan 10.11.5.
-*
-*       TODO: Does not currently compress image data, need to add Huffman encoding to IDAT chunk.
-*	TODO: Eventually want to add support for 1-bit (black and white) images to save space.
-*/
 
 #include <stdio.h>	//for fopen, fclose, FILE
 #include <stdint.h>	//for uint32_t, etc.

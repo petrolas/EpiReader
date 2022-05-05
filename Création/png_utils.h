@@ -1,5 +1,3 @@
-// structure must be "packed" so that it exactly matches the on-disk file format
-
 typedef struct __attribute__((__packed__)) {
 	uint32_t width;
 	uint32_t height;

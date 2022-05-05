@@ -1,16 +1,3 @@
-/*	Simple QR Code Generator - Support Tables
-*	Most of these routines are copied or heavily derived from
-*	the thonky.com website, where they were derived from
-*	Galios field math tables and the QR Code standard.
-*	No copyright is asserted for anything in this qr.h file.
-*	B.J. Guillot (bguillot@acm.org)
-*	Version 1.0
-*	2016-07-01
-*/
-
-
-// See http://www.thonky.com/qr-code-tutorial/log-antilog-table
-
 unsigned char a[] = { // 256 bytes
 	  1,   2,   4,   8,  16,  32,  64, 128,
 	 29,  58, 116, 232, 205, 135,  19,  38,

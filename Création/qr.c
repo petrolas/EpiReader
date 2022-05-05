@@ -22,14 +22,12 @@ void printArrayBYTE(char* info, uint16_t length, unsigned char data[]) {
 }
 
 
-// Reed-Solomon error corretion looks very scary on th Thonky.com website, but after reading pages and pages of their examples and explanations,
-// it turns out the entire algorithm could be reduced to some relatively simple loops after quite a bit of trial-and-error.
 
 void reedSolomon(int16_t data_codewords, int16_t data_offset, unsigned char message[], int16_t error_codewords, unsigned char errorcode[], unsigned char generator[]) {
 	for (int16_t i=0; i < data_codewords; i++)
 		errorcode[i] = message[i + data_offset];
 
-	for (int16_t i=data_codewords; i < error_codewords; i++) // if error codewords > data codewords, need to initialize enough zeros for the math
+	for (int16_t i=data_codewords; i < error_codewords; i++) // i
 		errorcode[i] = 0;
 	//printArrayBYTE("init: ", error_codewords, errorcode);
 
@@ -81,8 +79,7 @@ void parseMessage(char* filename, const char* freetext, unsigned char test_vecto
 	int16_t qr_version = -1;
 	for (int16_t i=0; i < 40; i++) {
 		int16_t capacity = codeword_parameters[i][1]*codeword_parameters[i][2] + codeword_parameters[i][3]*codeword_parameters[i][4] - 2;
-		if (i > 8) capacity--; //subtract one extra byte because of switch to 16-bit length byte in QR Version 10+
-		//printf("qr ver=%d  capacity=%d\n", i+1, capacity);
+		if (i > 8) capacity--; 
 
 		if (message_length <= capacity) {
 			qr_version = i;
@@ -124,7 +121,6 @@ void parseMessage(char* filename, const char* freetext, unsigned char test_vecto
 		}
 	}
 
-	//printArrayBYTE("encoded input (with padding)", message_index, message);
 
 	int16_t error_codewords = message_parameters[0];
 
@@ -294,8 +290,7 @@ void parseMessage(char* filename, const char* freetext, unsigned char test_vecto
 		}
 	}
 
-	//apply version info (for QR Versions 7+)
-	if (qr_version > 5) { //remember qr_version==6 is really V7
+	if (qr_version > 5) { 
 		int16_t offset = (qr_version-6)*3;
 		for (int i=0; i < 3; i++) {
 			unsigned char ver = version_info[offset+i];

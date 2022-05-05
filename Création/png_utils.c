@@ -1,11 +1,3 @@
-/*	PNG Utilities
-*	Most of these routines are copied or heavily derived from
-*	the reference CRC-32 and ADLER-32 implementations.
-*	No copyright is asserted for anything in this png_util.c file.
-*	B.J. Guillot (bguillot@acm.org)
-*	Version 1.0
-*	2016-06-30
-*/
 
 #include <stdint.h>	//for uint32_t, etc.
 
