@@ -7,5 +7,5 @@ readerSoutenance:
 
 .PHONY: clean
 
-clean: ${RM} readerSoutenance.o
-	${RM} reader
+clean: 
+	rm readerSoutenance
