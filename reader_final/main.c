@@ -19,10 +19,10 @@ int main(int argc, char** argv)
 		fprintf(stderr, "You must specify a file\n");
 		exit(1);
 	}
-	const char* data = argv[1];
+	const char* data = "qrcode.pbm";
 	
-	display((char*)data);
-	SDL_Surface* img = load_image((char*)data);
+	display(argv[1]);
+	SDL_Surface* img = load_image(argv[1]);
 	binary(img);
 	image2qr(img);
 	int a = SDL_SaveBMP(img, "examples/test2.bmp");
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 	SDL_FreeSurface(img);
 	display("examples/test2.bmp");
 	
-	FILE* f = data ? fopen(argv[1], "r") : stdin;
+	FILE* f = data ? fopen(data, "r") : stdin;
 	if (!f)
 	{
 		fprintf(stderr, "Could not open file '%s'\n", data);

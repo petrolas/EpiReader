@@ -161,34 +161,89 @@ void image2qr(SDL_Surface *img)
 {
 	Uint32 pixel;
 	Uint8 r, g, b;
-	int blockw=0;
-	int blockh=0;
+	int Ledge=0;
+	int Redge=0;
+	int Tedge=0;
+	int Bedge=0;
+	int blockSize=0;
 	int w, h;
 	w = img->w;
 	h = img->h;
+	int br=0;
 	
 	for(int i = 0; i<w; i++)
 	{
-		pixel = getpixel(img, i, 0);
-		SDL_GetRGB(pixel, img->format, &r, &g, &b);
-		if(r==255 && g==255 && b==255)
+		for(int j = 0; j<h; j++)
 		{
-			blockw++;
-		}else
+			pixel = getpixel(img, j, i);
+			SDL_GetRGB(pixel, img->format, &r, &g, &b);
+			if(r==0 && g==0 && b==0)
+			{
+				Ledge = i;
+				Tedge = j;
+				br=1;
+				break;
+			}
+		}
+		if(br)
 			break;
 	}
-	
-	for(int i = 0; i<h; i++)
+	br=0;
+	for(int i = w-1; i>=0; i--)
 	{
-		pixel = getpixel(img, blockw/2, i);
-		SDL_GetRGB(pixel, img->format, &r, &g, &b);
-		if(r==255 && g==255 && b==255)
+		for(int j = h-1; j>=0; j--)
 		{
-			blockh++;
-		}else
+			pixel = getpixel(img, j, i);
+			SDL_GetRGB(pixel, img->format, &r, &g, &b);
+			if(r==0 && g==0 && b==0)
+			{
+				Ledge = i;
+				Tedge = j;
+				br=1;
+				break;
+			}
+		}
+		if(br)
 			break;
 	}
-	printf("%i\n", img->h);
-	printf("%i\n", img->h/blockh);
 	
+	for(int i = Tedge; i<w; i++)
+	{
+		blockSize++;
+		pixel = getpixel(img, Ledge, i);
+		SDL_GetRGB(pixel, img->format, &r, &g, &b);
+		if(r==255 && g==255 && b==255)
+			break;
+	}
+	
+	blockSize/=7;
+	int nbBlocks = (Redge-Ledge+1)/blockSize;
+	
+	FILE *f;
+	f = fopen("qrcode.pbm","w");
+	
+	if(f=NULL)
+		errx(EXIT_FAILURE, "Unable to create file.\n");
+	
+	char str[10];
+	sprintf(str, "P1\n%d %d\n", nbBlocks, nbBlocks);
+	
+	pfuts(str,f);
+	
+	for(int i =1; i<=nbBlocks; i++)
+	{
+		for(int j =1; j<=nbBlocks; j++)
+		{
+			pixel = getpixel(img, j*blockSize+blockSize/2, i*blockSize+blockSize/2);
+			SDL_GetRGB(pixel, img->format, &r, &g, &b);
+			if(r==0 && g==0 && b==0)
+				fputs("1", f);
+			else
+				fputs("0", f);
+			if(j<nbBlocks)
+				fputs(" ", f);
+		}
+		fputs("\n", f);
+	}
+	fclose(f);
 }
