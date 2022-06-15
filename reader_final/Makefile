@@ -1,5 +1,5 @@
 CC      = gcc
-CFLAGS  = -Wall -Wextra -std=c99 -O3 $(shell sdl-config --libs) 
+CFLAGS  = -Wall -Wextra -Werror -std=c99 -O3 $(shell sdl-config --libs) 
 LDFLAGS = -O3 -export-dynamic $(shell sdl-config --libs) -lSDL_image
 TARGETS = qrcode
 
