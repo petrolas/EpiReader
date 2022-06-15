@@ -25,12 +25,12 @@ int main(int argc, char** argv)
 	SDL_Surface* img = load_image(argv[1]);
 	binary(img);
 	image2qr(img);
-	int a = SDL_SaveBMP(img, "examples/test2.bmp");
-	if(a==-1)
-		errx(1, "error in saving");
+//	int a = SDL_SaveBMP(img, "examples/test2.bmp");
+//	if(a==-1)
+//		errx(1, "error in saving");
 		
 	SDL_FreeSurface(img);
-	display("examples/test2.bmp");
+//	display("examples/test2.bmp");
 	
 	FILE* f = data ? fopen(data, "r") : stdin;
 	if (!f)

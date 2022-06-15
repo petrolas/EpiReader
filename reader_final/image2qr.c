@@ -164,13 +164,13 @@ void image2qr(SDL_Surface *img)
 	int Ledge=0;
 	int Redge=0;
 	int Tedge=0;
-	int Bedge=0;
-	int blockSize=0;
+//	int Bedge=0;
+	float blockSize=0;
 	int w, h;
 	w = img->w;
 	h = img->h;
-	int br=0;
-	
+	int br = 0;
+	// Ne marche pas si le coin bas droit est blanc
 	for(int i = 0; i<w; i++)
 	{
 		for(int j = 0; j<h; j++)
@@ -188,28 +188,32 @@ void image2qr(SDL_Surface *img)
 		if(br)
 			break;
 	}
-	br=0;
+
 	for(int i = w-1; i>=0; i--)
 	{
-		for(int j = h-1; j>=0; j--)
+		pixel = getpixel(img, Ledge, i);
+		SDL_GetRGB(pixel, img->format, &r, &g, &b);
+		if(r==0 && g==0 && b==0)
 		{
-			pixel = getpixel(img, j, i);
-			SDL_GetRGB(pixel, img->format, &r, &g, &b);
-			if(r==0 && g==0 && b==0)
-			{
-				Ledge = i;
-				Tedge = j;
-				br=1;
-				break;
-			}
-		}
-		if(br)
+			Redge = i;
 			break;
+		}
 	}
+	
+//	for(int i = h-1; i>=0; i--)
+//	{
+//		pixel = getpixel(img, i, Tedge);
+//		SDL_GetRGB(pixel, img->format, &r, &g, &b);
+//		if(r==0 && g==0 && b==0)
+//		{
+//			Bedge = i;
+//			break;
+//		}
+//	}
 	
 	for(int i = Tedge; i<w; i++)
 	{
-		blockSize++;
+		blockSize+=1;
 		pixel = getpixel(img, Ledge, i);
 		SDL_GetRGB(pixel, img->format, &r, &g, &b);
 		if(r==255 && g==255 && b==255)
@@ -217,24 +221,25 @@ void image2qr(SDL_Surface *img)
 	}
 	
 	blockSize/=7;
-	int nbBlocks = (Redge-Ledge+1)/blockSize;
+	float nbBlocksF = (Redge-Ledge+1)/blockSize + 0.5;
+	int nbBlocks = (int)nbBlocksF;
 	
 	FILE *f;
 	f = fopen("qrcode.pbm","w");
 	
-	if(f=NULL)
+	if(f==NULL)
 		errx(EXIT_FAILURE, "Unable to create file.\n");
 	
-	char str[10];
-	sprintf(str, "P1\n%d %d\n", nbBlocks, nbBlocks);
+	char str[28];
+	sprintf(str, "P1\n%i %i\n", nbBlocks, nbBlocks);
+
+	fputs(str,f);
 	
-	pfuts(str,f);
-	
-	for(int i =1; i<=nbBlocks; i++)
+	for(int i =0; i<nbBlocks; i++)
 	{
-		for(int j =1; j<=nbBlocks; j++)
+		for(int j=0; j<nbBlocks; j++)
 		{
-			pixel = getpixel(img, j*blockSize+blockSize/2, i*blockSize+blockSize/2);
+			pixel = getpixel(img, Ledge+j*blockSize+blockSize/2, Tedge+i*blockSize+blockSize/2);
 			SDL_GetRGB(pixel, img->format, &r, &g, &b);
 			if(r==0 && g==0 && b==0)
 				fputs("1", f);
@@ -245,5 +250,5 @@ void image2qr(SDL_Surface *img)
 		}
 		fputs("\n", f);
 	}
-	fclose(f);
+	fclose(f);	
 }
