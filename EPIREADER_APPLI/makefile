@@ -1,5 +1,5 @@
 # change application name here (executable output name)
-TARGET=EPIREDEAR
+TARGET=EPIREADER
 
 # compiler
 CC=gcc
